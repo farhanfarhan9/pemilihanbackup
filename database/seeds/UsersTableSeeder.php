@@ -13,17 +13,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $organization = Organization::create([
-            'name' => 'KamaruYogiru',
-            'shortname' => 'kamaryogi',
-            'phone_number' => '081397605069',
-        ]);
-
-        $organization->users()->create([
-            'name' => 'Pemilihan.id',
-            'email' => 'admin@pemilihan.id',
-            'email_verified_at' => date('Y-m-d H:i:s'),
-            'password' => Hash::make('password'),
-        ]);
+        factory(App\User::class, 50)->create()->each(function ($user) {
+            $user->posts()->save(factory(App\Post::class)->make());
+        });
     }
 }
