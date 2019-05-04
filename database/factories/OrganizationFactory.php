@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Organization::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
-        'shortname' => $faker->userName,
+        'shortname' => str_shuffle($faker->userName),
         'phone_number' => $faker->phoneNumber,
     ];
 });

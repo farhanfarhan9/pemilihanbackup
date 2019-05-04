@@ -5,8 +5,11 @@
  */
 
 require('./bootstrap');
+require('select2');
 
-
+$('.select2').select2({
+    theme: 'bootstrap4',
+});
 
 // window.Vue = require('vue');
 

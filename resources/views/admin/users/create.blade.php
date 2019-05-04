@@ -3,17 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-sm-12 offset-md-2">
+        <div class="col-md-8 col-sm-12 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <h5><i class="fas fa-user-plus"></i> Tambah pengguna</h5>
-                    <hr>
+                    <h5 class="card-title">Create new user</h5><hr>
                     <form action="{{ route('admin.users.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Organisasi</label>
 
-                            <select class="form-control @error('organization_id') is-invalid @enderror" name="organization_id">
+                            <select class="form-control select2 @error('organization_id') is-invalid @enderror" name="organization_id">
                                 <option value="">Pilih organisasi</option>
                                 @foreach($organizations as $organization)
                                     <option value="{{$organization->id}}" @if(old('organization_id') == $organization->id) selected @endif>{{ $organization->name }}</option>
@@ -61,10 +60,10 @@
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary">
-                                Kirim
+                                <i class="fas fa-check"></i> Submit
                             </button>
                             <a class="btn btn-danger" href="{{ route('admin.users') }}">
-                                Kembali
+                                <i class="fas fa-arrow-left"></i> Back to users
                             </a>
                         </div>
                     </form>

@@ -32,10 +32,16 @@ Route::name('admin.')
         ->middleware('auth')
         ->prefix('admin')
         ->group(function () {
-            // User section
+            // Users section
             Route::get('users', 'UserController@index')->name('users');
             Route::get('users/{user}/show', 'UserController@show')->name('users.show');
             Route::get('users/create', 'UserController@create')->name('users.create');
             Route::post('users/create', 'UserController@store')->name('users.store');
+            Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
+            Route::post('users/{user}/update', 'UserController@update')->name('users.update');
             Route::delete('users/{user}/delete', 'UserController@destroy')->name('users.destroy');
+
+            // Organizations section
+            Route::resource('organizations', 'OrganizationController');
+
         });

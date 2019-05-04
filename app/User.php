@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'organization_id', 'name', 'email', 'password',
     ];
 
     /**
@@ -38,6 +39,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function setPasswordAttribute($password)
+    {   
+        return $this->attributes['password'] = Hash::needsRehash($password) ?
+                                                                Hash::make($password) :
+                                                                $password;
+    }
+    
     public function organization()
     {
         return $this->belongsTo('App\Organization');
