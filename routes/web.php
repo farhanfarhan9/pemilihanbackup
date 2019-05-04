@@ -18,3 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Organization route
+
+Route::name('admin.')
+		->namespace('Admin')
+		->middleware('auth')
+		->prefix('admin')
+		->group(function(){
+			Route::resource('elections', 'Organization\ElectionController');
+		});
+

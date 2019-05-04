@@ -10,35 +10,30 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
-                        <div class="row">
-                            <div class="col-lg">
-                                <h5>Informasi organisasi</h5>
-                                <hr>
-                                <div class="form-group">
-                                    <label for="organization[name]">Nama</label>
-                                    <input class="form-control" type="text" id="organization[name]" name="organization[name]">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="organization[shortname]">Shortname</label>
-                                    <input class="form-control" type="text" id="organization[shortname]" name="organization[shortname]">
-                                    <small id="shortnameHelpBlock" class="form-text text-muted">
-                                        Shortname terdiri dari 5-12 karakter. Digunakan sebagai alamat organisasi atau halaman pemungutan suara.
-                                    </small>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="organization[phone_number]">Nomor telepon</label>
-                                    <input class="form-control" type="text" id="organization[phone_number]" name="organization[phone_number]">
-                                </div>
-                            </div>
-                            <div class="col-lg">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 col-sm-12">
                                 <h5>Informasi akun</h5>
                                 <hr>
+                                <div class="form-group">
+                                    <label for="">Nama</label>
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Email</label>
+                                    <input type="text" name="email" class="form-control" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Password</label>
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-primary" value="simpan">
+                                </div>
                             </div>
-                        </div>
-                        
+                        </div>                        
                     </form>
                 </div>
             </div>
