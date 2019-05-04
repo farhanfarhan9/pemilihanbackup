@@ -10,4 +10,9 @@ class Election extends Model
     {
     	return $this->hasMany('App\User');
     }
+
+    public function candidate()
+    {
+    	return $this->hasMany('App\Candidate');
+    }
 }

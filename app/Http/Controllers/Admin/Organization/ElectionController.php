@@ -14,7 +14,7 @@ class ElectionController extends Controller
     public function index()
     {
         $elections = \App\Election::paginate(10);
-        return view('Organizations.organization.index',['elections'=>$elections]);
+        return view('organizations.organization.index',['elections'=>$elections]);
     }
 
     /**
@@ -24,7 +24,7 @@ class ElectionController extends Controller
      */
     public function create()
     {
-        return view('Organizations.organization.create');
+        return view('organizations.organization.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class ElectionController extends Controller
     public function edit($id)
     {
         $election = \App\Election::findOrFail($id);
-        return view('Organizations.organization.edit',['election'=>$election]);
+        return view('organizations.organization.edit',['election'=>$election]);
     }
 
     /**

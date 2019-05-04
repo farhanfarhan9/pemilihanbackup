@@ -33,7 +33,7 @@
                                     <input type="button" class="btn btn-primary" value="simpan">
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </form>
                 </div>
             </div>

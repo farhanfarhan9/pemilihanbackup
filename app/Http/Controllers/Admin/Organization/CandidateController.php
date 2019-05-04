@@ -11,10 +11,12 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($electionId)
     {
+
         $candidates = \App\Candidate::paginate(10);
-        return view('organizations.candidate.index',['candidates'=>$candidates]);
+        $election = \App\Election::findOrFail($electionId);
+        return view('organizations.candidate.index',['candidates'=>$candidates, 'election'=>$election]);
     }
 
     /**
