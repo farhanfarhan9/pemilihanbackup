@@ -32,9 +32,21 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @auth
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('elections.index') }}">Pemilihan</a>
+                            </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Pemilih terdaftar</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Nama Organisasi</a>
+                            </li>
                     </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
