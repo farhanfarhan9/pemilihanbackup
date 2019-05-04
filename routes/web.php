@@ -26,5 +26,6 @@ Route::name('admin.')
 		->prefix('admin')
 		->group(function(){
 			Route::resource('elections', 'Organization\ElectionController');
+			Route::resource('candidates', 'Organization\CandidateController');
 		});
 

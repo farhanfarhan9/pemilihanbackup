@@ -1,6 +1,6 @@
 @extends('layouts.organization')
 @section('content')
-<div class="container">
+<div class="container-fluid">
 	<div class="card">
 		<div class="card-body">
 			@if(session('status'))
@@ -41,6 +41,7 @@
 											<td>{{$election->voting_starts_at}}</td>
 											<td>{{$election->voting_closed_on}}</td>
 											<td>
+												<a href="{{route('admin.candidates.index')}}" class="btn btn-info btn-sm text-white">Lihat Kandidat</a>
 												<a href="{{route('admin.elections.edit',$election->id)}}" class="btn btn-success btn-sm">Edit</a>
 												 <form onsubmit="return confirm('Delete this election permanently?')" class="d-inline" action="{{route('admin.elections.destroy', $election->id)}}" method="POST">
 					                              @csrf
