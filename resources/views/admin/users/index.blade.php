@@ -48,7 +48,15 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ ($user->organization->name) }}</td>
+                                            <td>
+                                                @if ($user->organization)
+                                                    {{ $user->organization->name }}
+                                                @else
+                                                    <span class="badge badge-warning">
+                                                        Belum memiliki Organisasi
+                                                    </span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a class="btn btn-sm btn-primary" href="{{ route('admin.users.show', $user->id) }}">
                                                     <i class="fas fa-eye"></i>
