@@ -6,10 +6,23 @@
 
 require('./bootstrap');
 require('select2');
+require('daterangepicker');
+let moment = require('moment');
+moment.locale('id');
 
 $('.select2').select2({
     theme: 'bootstrap4',
 });
+
+$('#registration_opened_at').daterangepicker({
+    minDate: moment(),
+    timePicker: true,
+    timePicker24Hour: true,
+    locale: {
+        format: 'dddd, DD MMMM YYYY HH:mm [GMT]Z'
+    },
+});
+
 
 // window.Vue = require('vue');
 
