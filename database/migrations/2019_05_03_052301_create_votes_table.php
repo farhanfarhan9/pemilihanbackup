@@ -20,9 +20,15 @@ class CreateVotesTable extends Migration
             $table->unsignedBigInteger('voter_id');
             $table->timestamps();
 
-            $table->foreign('election_id')->references('id')->on('elections');
-            $table->foreign('candidate_id')->references('id')->on('candidates');
-            $table->foreign('voter_id')->references('id')->on('voters');
+            $table->foreign('election_id')
+                  ->references('id')->on('elections')
+                  ->onDelete('cascade');
+            $table->foreign('candidate_id')
+                  ->references('id')->on('candidates')
+                  ->onDelete('cascade');
+            $table->foreign('voter_id')
+                  ->references('id')->on('voters')
+                  ->onDelete('cascade');
         });
     }
 

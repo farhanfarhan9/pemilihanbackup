@@ -12,12 +12,15 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -35,16 +38,19 @@
                     @auth
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('elections.index') }}">Pemilihan</a>
+                                <a class="nav-link" href="{{ route('elections.index') }}">
+                                    <i class="fas fa-poll-h"></i> Pemilihan
+                                </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Pemilih terdaftar</a>
+                                <a class="nav-link" href="{{ route('voters.index') }}">
+                                    <i class="fas fa-person-booth"></i> Pemilih terdaftar
+                                </a>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Nama Organisasi</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Nama Organisasi</a>
+                        </li>
                     </ul>
                     @endauth
 
@@ -53,11 +59,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">Masuk</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">Daftar</a>
                                 </li>
                             @endif
                         @else

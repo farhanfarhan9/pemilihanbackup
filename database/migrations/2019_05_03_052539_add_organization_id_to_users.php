@@ -18,7 +18,10 @@ class AddOrganizationIdToUsers extends Migration
                     ->after('id')
                     ->nullable();
 
-            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('organization_id')
+                  ->references('id')
+                  ->on('organizations')
+                  ->onDelete('cascade');
         });
     }
 
@@ -30,6 +33,7 @@ class AddOrganizationIdToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['organization_id']);
             $table->dropColumn('organization_id');
         });
     }

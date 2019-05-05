@@ -16,8 +16,8 @@ class ElectionController extends Controller
      */
     public function index()
     {
-        $elections = \App\Election::paginate(10);
-        return view('elections.index', ['elections'=>$elections]);
+        $elections = auth()->user()->organization->elections()->paginate(9);
+        return view('elections.index', compact('elections'));
     }
 
     /**
@@ -39,14 +39,14 @@ class ElectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'registration_opened_at' => 'required',
-            'registration_ends_at' => 'required',
-            'voting_starts_at' => 'required',
-            'voting_closed_at' => 'required',
+            'name' => 'required',
+            'registration_opened_on' => 'required',
+            'registration_closed_on' => 'required',
+            'voting_starts_on' => 'required',
+            'voting_ends_on' => 'required',
         ]);
 
-        $election = \Auth::user()->organization->elections()
+        $election = auth()->user()->organization->elections()
                                  ->create($request->all());
 
         return redirect()->route('elections.show', $election->id)
@@ -59,9 +59,10 @@ class ElectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Election $election)
     {
-        //
+        abort_unless($election->organization->is(auth()->user()->organization), 403);
+        return view('elections.show', compact('election'));
     }
 
     /**
@@ -88,10 +89,10 @@ class ElectionController extends Controller
         $election = \App\Election::findOrFail($id);
 
         $election->name = $request->get('name');
-        $election->registration_opened_at = $request->get('registration_opened_at');
-        $election->registration_ends_at = $request->get('registration_ends_at');
-        $election->voting_starts_at = $request->get('voting_starts_at');
-        $election->voting_closed_on = $request->get('voting_closed_on');
+        $election->registration_opened_on = $request->get('registration_opened_on');
+        $election->registration_closed_on = $request->get('registration_closed_on');
+        $election->voting_starts_on = $request->get('voting_starts_on');
+        $election->voting_ends_on = $request->get('voting_ends_on');
         $election->save();
         return redirect()->route('elections.index')->with('status', 'Berhasil mengubah pemilihan');
     }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\Organization;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -51,7 +52,25 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone_number' => ['required'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'org_name' => ['required', 'string'],
+            'org_phone_number' => ['required'],
+            'org_address' => ['required', 'string'],
+            'agreement' => ['required'],
+        ], [
+            'required' => ':attribute harus diisi.',
+            'email.email' => 'Alamat email tidak valid.',
+            'password.min' => 'Password harus 6 digit.',
+            'password.confirmed' => 'Konfirmasi password tidak sama.',
+        ], [
+            'name' => 'Nama lengkap',
+            'email' => 'Alamat email',
+            'phone_number' => 'Nomor telepon',
+            'password' => 'Password',
+            'org_name' => 'Nama organisasi',
+            'org_phone_number' => 'Nomor telepon organisasi',
+            'org_address' => 'Alamat organisasi',
         ]);
     }
 
@@ -63,7 +82,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $organization = Organization::create($data['organization']);
+        $organization = Organization::create([
+            'name' => $data['org_name'],
+            'shortname' => str_random(6),
+            'phone_number' => $data['phone_number'],
+            // 'address' => $data['org_address'],
+        ]);
 
         return User::create([
             'organization_id' => $organization->id,

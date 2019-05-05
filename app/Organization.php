@@ -22,4 +22,9 @@ class Organization extends Model
     {
         return $this->hasMany('App\Election');
     }
+
+    public function voters()
+    {
+        return $this->hasMany('App\Voter');
+    }
 }
