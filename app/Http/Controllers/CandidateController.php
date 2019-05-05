@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,9 @@ class CandidateController extends Controller
      */
     public function index($electionId)
     {
-
         $candidates = \App\Candidate::paginate(10);
         $election = \App\Election::findOrFail($electionId);
-        return view('candidates.index',['candidates'=>$candidates, 'election'=>$election]);
+        return view('candidates.index', ['candidates'=>$candidates, 'election'=>$election]);
     }
 
     /**

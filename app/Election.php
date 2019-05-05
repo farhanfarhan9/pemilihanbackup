@@ -8,11 +8,11 @@ class Election extends Model
 {
     public function user()
     {
-    	return $this->hasMany('App\User');
+        return $this->hasMany('App\User');
     }
 
     public function candidate()
     {
-    	return $this->hasMany('App\Candidate');
+        return $this->hasMany('App\Candidate');
     }
 }

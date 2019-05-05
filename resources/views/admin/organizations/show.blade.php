@@ -94,7 +94,7 @@
                                 </tbody>
                             </table>
 
-                            {{ $organization->users()->simplePaginate() }}
+                            {{ $organization->users()->paginate() }}
                         </div>
                     @else
                         <hr>

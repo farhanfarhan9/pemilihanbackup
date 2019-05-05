@@ -40,7 +40,7 @@ class User extends Authenticatable
     ];
 
     public function setPasswordAttribute($password)
-    {   
+    {
         return $this->attributes['password'] = Hash::needsRehash($password) ?
                                                                 Hash::make($password) :
                                                                 $password;

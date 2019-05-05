@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ElectionController extends Controller
     public function index()
     {
         $elections = \App\Election::paginate(10);
-        return view('elections.index',['elections'=>$elections]);
+        return view('elections.index', ['elections'=>$elections]);
     }
 
     /**
@@ -43,7 +44,7 @@ class ElectionController extends Controller
         $election->voting_starts_at = $request->get('voting_starts_at');
         $election->voting_closed_on = $request->get('voting_closed_on');
         $election->save();
-        return redirect()->route('elections.index')->with('status','Berhasil menambahkan pemilihan');
+        return redirect()->route('elections.index')->with('status', 'Berhasil menambahkan pemilihan');
     }
 
     /**
@@ -66,7 +67,7 @@ class ElectionController extends Controller
     public function edit($id)
     {
         $election = \App\Election::findOrFail($id);
-        return view('organizations.edit',['election'=>$election]);
+        return view('organizations.edit', ['election'=>$election]);
     }
 
     /**
@@ -86,7 +87,7 @@ class ElectionController extends Controller
         $election->voting_starts_at = $request->get('voting_starts_at');
         $election->voting_closed_on = $request->get('voting_closed_on');
         $election->save();
-        return redirect()->route('elections.index')->with('status','Berhasil mengubah pemilihan');
+        return redirect()->route('elections.index')->with('status', 'Berhasil mengubah pemilihan');
     }
 
     /**

@@ -19,9 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware('auth')->group(function(){
-	Route::resource('elections', 'ElectionController');
-	Route::resource('candidates', 'CandidateController');
+Route::middleware('auth')->group(function () {
+    Route::resource('elections', 'ElectionController');
+    Route::resource('candidates', 'CandidateController');
 });
 
 /*
@@ -47,5 +47,4 @@ Route::name('admin.')
 
             // Organizations section
             Route::resource('organizations', 'OrganizationController');
-
         });

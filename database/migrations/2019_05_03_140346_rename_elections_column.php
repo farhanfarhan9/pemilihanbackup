@@ -13,7 +13,7 @@ class RenameElectionsColumn extends Migration
      */
     public function up()
     {
-       Schema::table('elections', function (Blueprint $table) {
+        Schema::table('elections', function (Blueprint $table) {
             $table->renameColumn("voting_closed_on", "voting_closed_at");
         });
     }
