@@ -22,7 +22,9 @@ class CreateVotersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->timestamps();
 
-            $table->foreign('election_id')->references('id')->on('elections');
+            $table->foreign('election_id')
+                  ->references('id')->on('elections')
+                  ->onDelete('cascade');
         });
     }
 

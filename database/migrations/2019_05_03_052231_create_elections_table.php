@@ -23,7 +23,9 @@ class CreateElectionsTable extends Migration
             $table->timestamp('voting_closed_on')->nullable();
             $table->timestamps();
 
-            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('organization_id')
+                  ->references('id')->on('organizations')
+                  ->onDelete('cascade');
         });
     }
 

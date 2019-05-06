@@ -22,8 +22,8 @@ class CreateCandidatesTable extends Migration
             $table->timestamps();
 
             $table->foreign('election_id')
-                    ->references('id')
-                    ->on('users');
+                    ->references('id')->on('users')
+                    ->onDelete('cascade');
         });
     }
 
