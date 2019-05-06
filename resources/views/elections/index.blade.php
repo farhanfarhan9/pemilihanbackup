@@ -44,27 +44,26 @@
 
             <div class="col">
                 
+                @forelse($elections->chunk(3) as $chunk)
                 <div class="row mb-4">
-                    <div class="col">
+                  @foreach($chunk as $election)
+                    <div class="col-md-4">
                         <div class="card-deck">
                           <div class="card border-0 shadow-sm">
                             <div class="card-body">
                               <div style="margin-left: -1.25rem;
                                           padding-left: 1.25rem;
                                           border-left: 5px solid #3490dc">
-                                <a href="#" class="no-underline text-decoration-none">
-                                    <h4 class="card-title">Pemilihan kepala suku</h4>
+                                <a href="{{ route('elections.show', $election->id) }}" class="no-underline text-decoration-none">
+                                    <h4 class="card-title">{{ $election->name }}</h4>
                                 </a>
                               </div>
-                              <p class="card-text">
-                                Pemilihan umum untuk memilih kepala suku di organisasi {{ auth()->user()->organization->name }}.
-                              </p>
                               <div class="d-flex flex-column mb-2">
                                 <span class="text-secondary" style="font-size: 14px">
-                                    <i class="fas fa-hourglass-start"></i> 25 Mei 2019 07:00
+                                    <i class="fas fa-hourglass-start"></i> {{ $election->voting_starts_on->format('d M Y H:i:s') }}
                                 </span>
                                 <span class="text-secondary" style="font-size: 14px">
-                                    <i class="fas fa-hourglass-end"></i> 25 Mei 2019 12:00
+                                    <i class="fas fa-hourglass-end"></i> {{ $election->voting_ends_on->format('d M Y H:i:s') }}
                                 </span>
                               </div>
                                 <div class="d-flex justify-content-between">
@@ -77,70 +76,21 @@
                                 </div>
                             </div>
                           </div>
-                          <div class="card border-0 shadow-sm">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                          </div>
-                          <div class="card border-0 shadow-sm">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                            </div>
-                          </div>
                         </div>
                     </div>
+                  @endforeach
                 </div>
-
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="card-deck">
-                          <div class="card border-0 shadow-sm">
-                            <div class="card-body">
-                              <div style="margin-left: -1.25rem; padding-left: 1.25rem; border-left: 5px solid #3490dc">
-                                <h5 class="card-title">Card title</h5>
-                              </div>
-                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            </div>
-                          </div>
-                          <div class="card border-0 shadow-sm">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                          </div>
-                          <div class="card border-0 shadow-sm">
-                            <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                            </div>
-                          </div>
-                        </div>
+                @empty
+                  @if (auth()->user()->organization->elections()->count()  > 0)
+                    <div class="alert alert-warning">
+                      <h5>Uh-oh 😣</h5>Pemilihan tidak ditemukan.
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav>
+                  @else
+                    <div class="alert alert-primary">
+                      <h5>Hmm 🤔</h5> Sepertinya organisasi kamu belum pernah membuat pemilihan, <a href="{{ route('elections.create') }}">buat pemilihan baru disini</a>.
                     </div>
-                </div>
-
-
-
-
+                  @endif
+                @endif
             </div>
         </div>
     </div>

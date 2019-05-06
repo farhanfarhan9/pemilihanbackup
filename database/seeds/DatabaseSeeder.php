@@ -1,5 +1,6 @@
 <?php
 
+use App\Election;
 use App\Organization;
 use App\User;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         
         Organization::truncate();
         User::truncate();
+        Election::truncate();
 
         // $this->call(UsersTableSeeder::class);
         $this->call(OrganizationsTableSeeder::class);

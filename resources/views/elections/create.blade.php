@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-lg-8">
-			<div class="card">
+			<div class="card shadow-sm border-0">
 				<div class="card-body">
 					<h5 class="card-title">Buat pemilihan baru</h5>
 
@@ -21,9 +21,19 @@
                         </div>
 						
 						<div class="form-group">
-							<label for="">Periode registrasi</label>
-							<input class="form-control @error('registration_opened_at') is-invalid @enderror" type="text" name="registration_opened_at" id="registration_opened_at" value="{{ old('registration_opened_at') }}">
-	                        @error('registration_opened_at')
+							<label for="">Registrasi pemilih dibuka</label>
+							<input class="form-control @error('registration_opened_on') is-invalid @enderror" type="text" name="registration_opened_on" id="registration_opened_on" value="{{ old('registration_opened_on') }}">
+	                        @error('registration_opened_on')
+	                            <span class="invalid-feedback" role="alert">
+	                                <strong>{{ $message }}</strong>
+	                            </span>
+	                        @enderror
+						</div>
+
+						<div class="form-group">
+							<label for="">Registrasi pemilih ditutup</label>
+							<input class="form-control @error('registration_closed_on') is-invalid @enderror" type="text" name="registration_closed_on" id="registration_closed_on" value="{{ old('registration_closed_on') }}">
+	                        @error('registration_closed_on')
 	                            <span class="invalid-feedback" role="alert">
 	                                <strong>{{ $message }}</strong>
 	                            </span>
@@ -33,7 +43,7 @@
 						<div class="form-row">
 							<div class="form-group col-lg">
 								<label for="">Voting dibuka pada</label>
-								<input class="form-control @error('voting_starts_at') is-invalid @enderror" type="text" name="voting_starts_at" id="voting_starts_at" value="{{ old('voting_starts_at') }}">
+								<input class="form-control @error('voting_starts_on') is-invalid @enderror" type="text" name="voting_starts_on" id="voting_starts_on" value="{{ old('voting_starts_on') }}">
 		                        @error('name')
 		                            <span class="invalid-feedback" role="alert">
 		                                <strong>{{ $message }}</strong>
@@ -42,7 +52,7 @@
 							</div>
 							<div class="form-group col-lg">
 								<label for="">Voting ditutup pada</label>
-								<input id="electionStartDate" class="form-control @error('voting_closed_on') is-invalid @enderror" type="text" name="voting_closed_on" id="voting_closed_on" value="{{ old('voting_closed_on') }}">
+								<input id="electionStartDate" class="form-control @error('voting_ends_on') is-invalid @enderror" type="text" name="voting_ends_on" id="voting_ends_on" value="{{ old('voting_ends_on') }}">
 		                        @error('name')
 		                            <span class="invalid-feedback" role="alert">
 		                                <strong>{{ $message }}</strong>
@@ -57,7 +67,7 @@
                                 <i class="fas fa-check"></i> Simpan
                             </button>
                             <a class="btn btn-danger" href="{{ route('elections.index') }}">
-                                <i class="fas fa-arrow-left"></i> Kembali ke pemilihan
+                                <i class="fas fa-arrow-left"></i> Kembali
                             </a>
                         </div>
 						</div>                 

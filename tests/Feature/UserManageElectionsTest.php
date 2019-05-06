@@ -64,10 +64,10 @@ class UserManageElectionsTest extends TestCase
 
         $election = [
             'name',
-            'registration_opened_at',
-            'registration_ends_at',
-            'voting_starts_at',
-            'voting_closed_at',
+            'registration_opened_on',
+            'registration_closed_on',
+            'voting_starts_on',
+            'voting_ends_on',
         ];
 
         $this->actingAs($user)
@@ -83,7 +83,7 @@ class UserManageElectionsTest extends TestCase
      */
     public function an_user_can_create_an_election()
     {
-        $this->withExceptionHandling();
+        $this->withoutExceptionHandling();
         
         $user = factory(User::class)->create();
 
@@ -93,10 +93,10 @@ class UserManageElectionsTest extends TestCase
 
         $election = [
             'name' => $this->faker->name,
-            'registration_opened_at' => $this->faker->dateTime(),
-            'registration_ends_at' => $this->faker->dateTime(),
-            'voting_starts_at' => $this->faker->dateTime(),
-            'voting_closed_at' => $this->faker->dateTime(),
+            'registration_opened_on' => $this->faker->dateTime(),
+            'registration_closed_on' => $this->faker->dateTime(),
+            'voting_starts_on' => $this->faker->dateTime(),
+            'voting_ends_on' => $this->faker->dateTime(),
         ];
 
         $this->actingAs($user)
@@ -105,5 +105,36 @@ class UserManageElectionsTest extends TestCase
              ->assertRedirect(route('elections.show', 1));
 
         $this->assertDatabaseHas('elections', $election);
+    }
+
+    /**
+     * @test
+     */
+    public function users_can_show_theirs_elections()
+    {
+        $organization = factory('App\Organization')->create();
+        $this->actingAs(factory('App\User')->create(['organization_id' => $organization->id]));
+        $election = factory('App\Election')->create(['organization_id' => $organization->id]);
+
+        $this->get('elections/' . $election->id)
+             ->assertStatus(200)
+             ->assertSeeText($election->name);
+    }
+
+    /**
+     * @test
+     */
+    public function users_may_only_see_their_organization_elections()
+    {
+        $this->actingAs(factory('App\User')->create());
+
+        $organization = factory('App\Organization')->create();
+        $election = factory('App\Election')->create(['organization_id' => $organization->id]);
+
+        $this->get('elections')
+             ->assertDontSeeText($election->name);
+
+        $this->get('elections/' . $election->id)
+             ->assertStatus(403);
     }
 }
