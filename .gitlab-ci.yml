@@ -1,141 +1,34 @@
-stages:
-  - preparation
-  - building
-  - testing
-  - security
+image: php:latest
 
-# Variables
-variables:
-  MYSQL_ROOT_PASSWORD: secret
-  MYSQL_USER: homestead
-  MYSQL_PASSWORD: secret
-  MYSQL_DATABASE: pemilihan
-  DB_HOST: mysql
+services:
+  - mysql:5.7
 
 cache:
-  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+  paths:
+  - vendor/
+  - node_modules/
 
-composer:
-  stage: preparation
-  services:
-    - mysql:5.7
-  image: edbizarro/gitlab-ci-pipeline-php:7.2
-  script:
-    - php -v
-    - composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts
-    - cp .env.testing .env
-    - php artisan key:generate
-  artifacts:
-    paths:
-      - vendor/
-      - .env
-    expire_in: 1 days
-    when: always
-  cache:
-    paths:
-      - vendor/
+variables:
+  MYSQL_DATABASE: homestead
+  MYSQL_ROOT_PASSWORD: secret
+  DB_HOST: mysql
+  DB_USERNAME: homestead
 
-yarn:
-  stage: preparation
-  image: edbizarro/gitlab-ci-pipeline-php:7.2
-  script:
-    - yarn --version
-    - yarn install --pure-lockfile
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 1 days
-    when: always
-  cache:
-    paths:
-      - node_modules/
+before_script:
+  - apt-get update -yqq
+  - apt-get install gnupg -yqq
+  - apt-get install git nodejs libcurl4-gnutls-dev libicu-dev libmcrypt-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libpq-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev zlib1g-dev -yqq
+  - docker-php-ext-install mbstring pdo_mysql curl json intl gd xml zip bz2 opcache sqlite3
+  - pecl install xdebug
+  - docker-php-ext-enable xdebug
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install 
+  - cp .env.example .env
+  - php artisan key:generate
+  - php artisan config:cache
+  - php artisan migrate
+  - php artisan db:seed
 
-build-assets:
-  stage: building
-  image: edbizarro/gitlab-ci-pipeline-php:7.2
-  # Download the artifacts for these jobs
-  dependencies:
-    - composer
-    - yarn
+test:
   script:
-    - yarn --version
-    - yarn run production --progress false
-  artifacts:
-    paths:
-      - public/css/
-      - public/js/
-      - public/fonts/
-      - public/mix-manifest.json
-    expire_in: 1 days
-    when: always
-
-db-seeding:
-  stage: building
-  services:
-    - mysql:5.7
-  image: edbizarro/gitlab-ci-pipeline-php:7.2
-  # Download the artifacts for these jobs
-  dependencies:
-    - composer
-    - yarn
-  script:
-    - php artisan migrate:fresh --seed
-  artifacts:
-    paths:
-      - ./storage/logs # for debugging
-    expire_in: 1 days
-    when: on_failure
-
-phpunit:
-  stage: testing
-  services:
-    - mysql:5.7
-  image: edbizarro/gitlab-ci-pipeline-php:7.2
-  # Download the artifacts for these jobs
-  dependencies:
-    - build-assets
-    - composer
-    - db-seeding
-  script:
-    - php -v
-    - sudo cp /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.bak
-    - echo "" | sudo tee /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-    - ./vendor/phpunit/phpunit/phpunit --version
-    - php -d short_open_tag=off ./vendor/phpunit/phpunit/phpunit -v --colors=never --stderr
-    - sudo cp /usr/local/etc/php/conf.d/docker-php-ext-xdebug.bak /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-  artifacts:
-    paths:
-      - ./storage/logs # for debugging
-    expire_in: 1 days
-    when: on_failure
-
-codestyle:
-  stage: testing
-  image: lorisleiva/laravel-docker
-  script:
-    - phpcs --extensions=php app
-  dependencies: []
-
-phpcpd:
-  stage: testing
-  image: edbizarro/gitlab-ci-pipeline-php:7.2
-  script:
-    - test -f phpcpd.phar || curl -L https://phar.phpunit.de/phpcpd.phar -o phpcpd.phar
-    - php phpcpd.phar app/ --min-lines=50
-  dependencies: []
-  cache:
-    paths:
-      - phpcpd.phar
-
-sensiolabs:
-  stage: security
-  image: edbizarro/gitlab-ci-pipeline-php:7.2
-  script:
-    - test -d security-checker || git clone https://github.com/sensiolabs/security-checker.git
-    - cd security-checker
-    - composer install
-    - php security-checker security:check ../composer.lock
-  dependencies: []
-  cache:
-    paths:
-      - security-checker/
+  - php vendor/bin/phpunit --coverage-text --colors=never 
