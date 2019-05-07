@@ -36,11 +36,15 @@
                     @auth
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('elections.index') }}">Pemilihan</a>
+                                <a class="nav-link" href="{{ route('elections.index') }}">
+                                    <i class="fas fa-poll-h"></i> Pemilihan
+                                </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Pemilih terdaftar</a>
+                                <a class="nav-link" href="{{ route('voters.index') }}">
+                                    <i class="fas fa-person-booth"></i> Pemilih terdaftar
+                                </a>
                             </li>
 
                             <li class="nav-item">
