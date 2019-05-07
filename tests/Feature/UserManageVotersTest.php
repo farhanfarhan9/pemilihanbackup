@@ -108,4 +108,32 @@ class UserManageVotersTest extends TestCase
              ->assertStatus(200)
              ->assertSeeText($currentUserVoter->name);
     }
+
+    /**
+     * @test
+     */
+    public function users_may_only_update_their_own_organization_voters()
+    {
+        $this->actingAs(factory('App\User')->create());
+
+        $voter = factory('App\Voter')->create(['organization_id' => auth()->user()->organization->id])->toArray();
+        $voter['name'] = 'Jane Doe';
+
+        $anotherOrganizationVoter = factory('App\Voter')->create()->toArray();
+        $anotherOrganizationVoter['name'] = 'John doe';
+
+        $this->get(route('voters.edit', $anotherOrganizationVoter['id']))
+             ->assertStatus(403);
+        $this->patch(route('voters.update', $anotherOrganizationVoter['id']), $anotherOrganizationVoter)
+             ->assertStatus(403);
+
+        $this->get(route('voters.edit', $voter['id']))
+             ->assertStatus(200);
+        $this->patch(route('voters.update', $voter['id']), $voter)
+             ->assertRedirect(route('voters.show', $voter['id']));
+
+        $this->assertDatabaseHas('voters', $voter);
+        $this->assertDatabaseMissing('voters', $anotherOrganizationVoter);
+
+    }
 }

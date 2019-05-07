@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voter extends Model
 {
-    protected $guarded = [];
+    protected $guarded = [
+        'organization_id'
+    ];
 
     public function organization()
     {

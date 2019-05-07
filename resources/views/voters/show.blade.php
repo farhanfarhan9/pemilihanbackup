@@ -4,7 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>{{ $voter->name }}</h2>
+                <div class="card">
+                    <div class="card-body">
+                        {{ $voter->name }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

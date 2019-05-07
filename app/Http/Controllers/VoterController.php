@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Voter;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class VoterController extends Controller
 {
@@ -36,11 +37,31 @@ class VoterController extends Controller
      */
     public function store(Request $request)
     {
+        $organization = auth()->user()->organization->id;
+
         $request->validate([
-            'identity' => 'required|unique_with:voters,organization_id,identity',
+            'identity' => [
+                'required',
+                'unique' => Rule::unique('voters')->where(function($query) use ($request, $organization) {
+                    return $query->where('identity', $request->get('identity'))
+                                 ->where('organization_id', $organization);
+                }),
+            ],
             'name' => 'required',
-            'email' => 'required|email|unique_with:voters,organization_id,email',
-            'phone_number' => 'required|unique_with:voters,organization_id,phone_number',
+            'email' => [
+                'required',
+                'unique' => Rule::unique('voters')->where(function($query) use ($request, $organization) {
+                    return $query->where('email', $request->get('email'))
+                                 ->where('organization_id', $organization);
+                }),
+            ],
+            'phone_number' => [
+                'required',
+                'unique' => Rule::unique('voters')->where(function($query) use ($request, $organization) {
+                    return $query->where('phone_number', $request->get('phone_number'))
+                                 ->where('organization_id', $organization);
+                }),
+            ],
         ]);
 
         $voter = auth()->user()->organization->voters()->create($request->all());
@@ -68,7 +89,8 @@ class VoterController extends Controller
      */
     public function edit(Voter $voter)
     {
-        //
+        abort_unless($voter->organization->is(auth()->user()->organization), 403);
+        return view('voters.edit', compact('voter'));
     }
 
     /**
@@ -80,7 +102,37 @@ class VoterController extends Controller
      */
     public function update(Request $request, Voter $voter)
     {
-        //
+        abort_unless($voter->organization->is(auth()->user()->organization), 403);
+        $organization = auth()->user()->organization->id;
+
+        $request->validate([
+            'identity' => [
+                'required',
+                'unique' => Rule::unique('voters')->ignore($voter)->where(function($query) use ($request, $organization) {
+                    return $query->where('identity', $request->get('identity'))
+                                 ->where('organization_id', $organization);
+                }),
+            ],
+            'name' => 'required',
+            'email' => [
+                'required',
+                'unique' => Rule::unique('voters')->ignore($voter)->where(function($query) use ($request, $organization) {
+                    return $query->where('email', $request->get('email'))
+                                 ->where('organization_id', $organization);
+                }),
+            ],
+            'phone_number' => [
+                'required',
+                'unique' => Rule::unique('voters')->ignore($voter)->where(function($query) use ($request, $organization) {
+                    return $query->where('phone_number', $request->get('phone_number'))
+                                 ->where('organization_id', $organization);
+                }),
+            ],
+        ]);
+
+        $voter->update($request->all());
+
+        return redirect()->route('voters.show', $voter->id);
     }
 
     /**
