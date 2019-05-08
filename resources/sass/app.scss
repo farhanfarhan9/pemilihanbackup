@@ -5,11 +5,10 @@
 @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
+    border-bottom: 4px solid $blue;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 @import "~select2/dist/css/select2.css";
 @import "~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css";
-@import "~daterangepicker/daterangepicker.css";
-@import "~smartwizard/dist/css/smart_wizard.css";

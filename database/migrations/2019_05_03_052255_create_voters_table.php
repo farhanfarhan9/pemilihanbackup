@@ -21,7 +21,6 @@ class CreateVotersTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();
             $table->timestamps();
-
             $table->foreign('organization_id')
                   ->references('id')->on('organizations')
                   ->onDelete('cascade');

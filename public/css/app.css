@@ -1033,6 +1033,7 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
     clear: none !important;
   }
 }
+<<<<<<< HEAD
 /*!
  * SmartWizard v4.3.x
  * jQuery Wizard Plugin
@@ -1245,6 +1246,8 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
         transform: rotate(360deg);
     }
 }
+=======
+>>>>>>> make-ui-changes-elections
 @charset "UTF-8";
 
 /*!

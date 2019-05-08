@@ -62551,8 +62551,11 @@ __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
 
 __webpack_require__(/*! daterangepicker */ "./node_modules/daterangepicker/daterangepicker.js");
 
+<<<<<<< HEAD
 __webpack_require__(/*! smartWizard */ "./node_modules/smartWizard/dist/js/jquery.smartWizard.js");
 
+=======
+>>>>>>> make-ui-changes-elections
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 moment.locale('id');
@@ -62566,8 +62569,12 @@ $('#registration_opened_at').daterangepicker({
   locale: {
     format: 'dddd, DD MMMM YYYY HH:mm [GMT]Z'
   }
+<<<<<<< HEAD
 });
 $('#registration-form').smartWizard(); // window.Vue = require('vue');
+=======
+}); // window.Vue = require('vue');
+>>>>>>> make-ui-changes-elections
 // /**
 //  * The following block of code may be used to automatically register your
 //  * Vue components. It will recursively scan this directory for the Vue
