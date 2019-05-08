@@ -9,6 +9,8 @@ class Election extends Model
     protected $guarded = [];
 
     protected $dates = [
+        'registration_opened_on',
+        'registration_closed_on',
         'voting_starts_on',
         'voting_ends_on',
     ];

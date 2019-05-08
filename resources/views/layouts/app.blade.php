@@ -15,7 +15,7 @@
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -68,9 +68,9 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.users') }}">
-                                    Administrator
+                                    <i class="fas fa-shield-alt"></i> Administrator
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
@@ -99,6 +99,25 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="bg-secondary text-light">
+            <div class="container">
+                <div class="d-flex flex-column align-items-center py-5">
+                    <div class="mb-3">
+                        <ul class="m-0 p-0">
+                            <li class="d-inline"><a href="#">Beranda</a></li>
+                            <li class="d-inline"><a href="#">Tentang</a></li>
+                            <li class="d-inline"><a href="#">Privasi</a></li>
+                            <li class="d-inline"><a href="#">Kritik dan Saran</a></li>
+                            <li class="d-inline"><a href="#">Kontak</a></li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <p class="m-0">Pemilihan.id adalah aplikasi pemilihan online<br/>&copy; 2019 KamaruYogiru. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
