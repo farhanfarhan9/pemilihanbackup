@@ -38,18 +38,19 @@
                     @auth
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                                <a class="nav-link" href="{{ route('elections.index') }}">
-                                    <i class="fas fa-poll-h"></i> Pemilihan
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('voters.index') }}">
-                                    <i class="fas fa-person-booth"></i> Pemilih terdaftar
-                                </a>
-                            </li>
+                            <a class="nav-link" href="{{ route('elections.index') }}">
+                                <i class="fas fa-poll-h"></i> Pemilihan
+                            </a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Nama Organisasi</a>
+                            <a class="nav-link" href="{{ route('voters.index') }}">
+                                <i class="fas fa-person-booth"></i> Pemilih terdaftar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-building"></i> Pengaturan Organisasi
+                            </a>
                         </li>
                     </ul>
                     @endauth
