@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Voter;
+use App\Http\Requests\StoreVoterPost;
+use App\Http\Requests\UpdateVoterPatch;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -35,36 +37,11 @@ class VoterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreVoterPost $request)
     {
-        $organization = auth()->user()->organization->id;
+        $validated = $request->validated();
 
-        $request->validate([
-            'identity' => [
-                'required',
-                'unique' => Rule::unique('voters')->where(function($query) use ($request, $organization) {
-                    return $query->where('identity', $request->get('identity'))
-                                 ->where('organization_id', $organization);
-                }),
-            ],
-            'name' => 'required',
-            'email' => [
-                'required',
-                'unique' => Rule::unique('voters')->where(function($query) use ($request, $organization) {
-                    return $query->where('email', $request->get('email'))
-                                 ->where('organization_id', $organization);
-                }),
-            ],
-            'phone_number' => [
-                'required',
-                'unique' => Rule::unique('voters')->where(function($query) use ($request, $organization) {
-                    return $query->where('phone_number', $request->get('phone_number'))
-                                 ->where('organization_id', $organization);
-                }),
-            ],
-        ]);
-
-        $voter = auth()->user()->organization->voters()->create($request->all());
+        $voter = auth()->user()->organization->voters()->create($validated);
 
         return redirect()->route('voters.show', $voter->id);
     }
@@ -100,37 +77,14 @@ class VoterController extends Controller
      * @param  \App\Voter  $voter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Voter $voter)
+    public function update(UpdateVoterPatch $request, Voter $voter)
     {
         abort_unless($voter->organization->is(auth()->user()->organization), 403);
         $organization = auth()->user()->organization->id;
 
-        $request->validate([
-            'identity' => [
-                'required',
-                'unique' => Rule::unique('voters')->ignore($voter)->where(function($query) use ($request, $organization) {
-                    return $query->where('identity', $request->get('identity'))
-                                 ->where('organization_id', $organization);
-                }),
-            ],
-            'name' => 'required',
-            'email' => [
-                'required',
-                'unique' => Rule::unique('voters')->ignore($voter)->where(function($query) use ($request, $organization) {
-                    return $query->where('email', $request->get('email'))
-                                 ->where('organization_id', $organization);
-                }),
-            ],
-            'phone_number' => [
-                'required',
-                'unique' => Rule::unique('voters')->ignore($voter)->where(function($query) use ($request, $organization) {
-                    return $query->where('phone_number', $request->get('phone_number'))
-                                 ->where('organization_id', $organization);
-                }),
-            ],
-        ]);
+        $validated = $request->validated();
 
-        $voter->update($request->all());
+        $voter->update($validated);
 
         return redirect()->route('voters.show', $voter->id);
     }

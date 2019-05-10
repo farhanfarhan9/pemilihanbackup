@@ -15,7 +15,7 @@
             <div class="col">
                 <form>
                     <div class="input-group">
-                      <div class="input-group-prepend">
+                      <div class="input-group-append">
                         <span class="input-group-text bg-primary text-light border-0 shadow-sm">
                             <i class="fas fa-search"></i>
                         </span>
