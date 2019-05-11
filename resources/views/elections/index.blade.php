@@ -65,11 +65,11 @@
                                   </span>
                               </div>
                               <div class="d-flex justify-content-end">
-                                  <a class="btn btn-info text-white btn-sm mr-1" href="{{route('elections.edit',$election->id)}}">Edit</a>
+                                  <a class="btn btn-info text-white btn-sm mr-1" href="{{route('elections.edit',$election->id)}}"><i class="fas fa-edit"></i> Edit</a>
                                   <form action="{{route('elections.destroy',$election->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="submit" class="btn btn-danger btn-sm" value="Hapus">
+                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
                                   </form>
                               </div>
                             </div>
