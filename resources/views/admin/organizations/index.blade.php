@@ -56,6 +56,9 @@
                                             <td>{{ $organization->name }}</td>
                                             <td>{{ $organization->users->count() }} {{ Str::plural('user', $organization->users->count()) }}</td>
                                             <td>
+                                                <a class="btn btn-sm btn-success" href="{{ route('admin.elections.show', $organization->id) }}">
+                                                    Lihat pemilihan
+                                                </a>
                                                 <a class="btn btn-sm btn-primary" href="{{ route('admin.organizations.show', $organization->id) }}">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

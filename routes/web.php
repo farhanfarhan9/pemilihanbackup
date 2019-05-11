@@ -48,4 +48,5 @@ Route::name('admin.')
 
             // Organizations section
             Route::resource('organizations', 'OrganizationController');
+            Route::resource('elections', 'ElectionController');
         });
