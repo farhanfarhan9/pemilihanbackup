@@ -56,14 +56,22 @@
                                     <i class="fas fa-hourglass-end"></i> {{ $election->voting_ends_on->format('d M Y H:i:s') }}
                                 </span>
                               </div>
-                                <div class="d-flex justify-content-between">
-                                    <span class="text-secondary">
-                                        <i class="fas fa-users"></i> 2 kandidat
-                                    </span>
-                                    <span class="text-secondary">
-                                        <i class="fas fa-person-booth"></i> 1200 pemilih
-                                    </span>
-                                </div>
+                              <div class="d-flex justify-content-between">
+                                  <span class="text-secondary">
+                                      <i class="fas fa-users"></i> 2 kandidat
+                                  </span>
+                                  <span class="text-secondary">
+                                      <i class="fas fa-person-booth"></i> 1200 pemilih
+                                  </span>
+                              </div>
+                              <div class="d-flex justify-content-end">
+                                  <a class="btn btn-info text-white btn-sm mr-1" href="{{route('elections.edit',$election->id)}}">Edit</a>
+                                  <form action="{{route('elections.destroy',$election->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Hapus">
+                                  </form>
+                              </div>
                             </div>
                           </div>
                         </div>
