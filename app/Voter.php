@@ -14,4 +14,9 @@ class Voter extends Model
     {
         return $this->belongsTo('App\Organization');
     }
+
+    public function elections()
+    {
+        return $this->belongsToMany('App\Election')->withTimestamps();
+    }
 }

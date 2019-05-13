@@ -25,6 +25,7 @@
         "sass-loader": "^7.1.0",
         "select2": "^4.0.7-rc.0",
         "vue": "^2.5.17",
+        "vue-ctk-date-time-picker": "^2.1.1",
         "vue-template-compiler": "^2.6.10"
     }
 }

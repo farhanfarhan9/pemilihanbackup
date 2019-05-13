@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Election;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreElectionPostRequest;
 use App\Organization;
+use App\Voter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ElectionController extends Controller
 {
@@ -36,20 +39,17 @@ class ElectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreElectionPostRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'registration_opened_on' => 'required',
-            'registration_closed_on' => 'required',
-            'voting_starts_on' => 'required',
-            'voting_ends_on' => 'required',
-        ]);
-
+        dd($request);
+        $validate = $request->validated();
         $election = auth()->user()->organization->elections()
-                                 ->create($request->all());
+                                 ->create($validate);
 
-        return redirect()->route('elections.show', $election->id)
+        $voters = auth()->user()->organization->voters->pluck('id');
+        $election->voters()->attach($voters, ['status' => true]);
+
+        return redirect()->route('elections.show', $election->hash_id)
                          ->with('success', 'Berhasil menambahkan pemilihan');
     }
 
@@ -62,6 +62,17 @@ class ElectionController extends Controller
     public function show(Election $election)
     {
         abort_unless($election->organization->is(auth()->user()->organization), 403);
+        $election->loadCount([
+            'candidates',
+            'voters',
+            'voters as voters_active_count' => function ($query) {
+                $query->selectRaw('count(voters.id) as aggregate')->where('status', 1);
+            },
+            'voters as voters_inactive_count' => function ($query) {
+                $query->selectRaw('count(voters.id) as aggregate')->where('status', 0);
+            }
+        ]);
+
         return view('elections.show', compact('election'));
     }
 
@@ -71,10 +82,10 @@ class ElectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Election $election)
     {
-        $election = \App\Election::findOrFail($id);
-        return view('organizations.edit', ['election'=>$election]);
+        abort_unless($election->organization->is(auth()->user()->organization), 403);
+        return view('elections.edit', compact('election'));
     }
 
     /**
@@ -103,10 +114,42 @@ class ElectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Election $election)
     {
-        $election = \App\Election::findOrFail($id);
+        abort_unless($election->organization->is(auth()->user()->organization), 403);
+
+        if ($election->hash_id != $request->election_id)
+            return redirect()->route('elections.show', $election->hash_id)->with('error', 'Gagal menghapus pemilihan');
+
         $election->delete();
         return redirect()->route('elections.index')->with('status', 'Berhasil menghapus pemilihan');
+    }
+
+    /**
+     * Show voters belongs to the election
+     * @param  Election $election
+     * @return \Illuminate\Http\Response
+     */
+    public function voters(Election $election)
+    {
+        abort_unless($election->organization->is(auth()->user()->organization), 403);
+        $voters = $election->voters()->withPivot('status')->simplePaginate(20);
+        return view('elections.voters', compact('election', 'voters'));
+    }
+
+    /**
+     * Update status of election voters
+     * @param  Request  $request
+     * @param  Election $election
+     * @param  int  $voter
+     * @return null
+     */
+    public function updateVoters(Request $request, Election $election, $voter)
+    {
+        abort_unless($election->organization->is(auth()->user()->organization), 403);
+        $voter = $election->voters()->withPivot('status')->findOrFail($voter);
+        $election->voters()->updateExistingPivot($voter->id, [
+            'status' => !$voter->pivot->status
+        ]);
     }
 }

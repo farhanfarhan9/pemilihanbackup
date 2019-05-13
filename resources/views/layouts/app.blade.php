@@ -13,14 +13,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-        }
-    </style>
 </head>
 <body>
     <div id="app">
@@ -100,20 +94,42 @@
             @yield('content')
         </main>
 
-        <footer class="bg-secondary text-light">
-            <div class="container">
-                <div class="d-flex flex-column align-items-center py-5">
-                    <div class="mb-3">
-                        <ul class="m-0 p-0">
-                            <li class="d-inline"><a href="#">Beranda</a></li>
-                            <li class="d-inline"><a href="#">Tentang</a></li>
-                            <li class="d-inline"><a href="#">Privasi</a></li>
-                            <li class="d-inline"><a href="#">Kritik dan Saran</a></li>
-                            <li class="d-inline"><a href="#">Kontak</a></li>
-                        </ul>
-                    </div>
-                    <div class="text-center">
-                        <p class="m-0">Pemilihan.id adalah aplikasi pemilihan online<br/>&copy; 2019 KamaruYogiru. All rights reserved.</p>
+        <footer>
+            <div class="bg-dark text-white py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex flex-column flex-md-row justify-content-between">
+                                <div class="mb-3 mb-md-0">
+                                    &copy; 2019 KamaruYogiru.
+                                </div>
+                                <div>
+                                    <ul class="mb-3 mb-md-0 list-unstyled d-flex flex-column flex-md-row">
+                                        <li class="mr-3">
+                                            <a class="text-decoration-none text-white" href="#">Tentang</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a class="text-decoration-none text-white" href="#">Syarat & Ketentuan</a>
+                                        </li>
+                                        <li class="mr-3">
+                                            <a class="text-decoration-none text-white" href="#">Privasi</a>
+                                        </li>
+                                        <li>
+                                            <a class="text-decoration-none text-white" href="#">Kontak</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <ul class="m-0 list-unstyled">
+                                        <li>
+                                            <a class="text-decoration-none text-white" href="https://github.com/kamaruyogiru" target="_blank">
+                                                <i class="fab fa-github fa-2x"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Election;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,10 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($electionId)
+    public function index(Election $election)
     {
-        $candidates = \App\Candidate::paginate(10);
-        $election = \App\Election::findOrFail($electionId);
-        return view('candidates.index', ['candidates'=>$candidates, 'election'=>$election]);
+        $election->load('candidates');
+        return view('candidates.index', compact('election'));
     }
 
     /**

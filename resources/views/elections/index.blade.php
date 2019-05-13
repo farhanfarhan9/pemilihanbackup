@@ -16,11 +16,11 @@
                 <form>
                     <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text bg-primary text-light border-0 shadow-sm">
+                        <span class="input-group-text bg-transparent shadow-sm">
                             <i class="fas fa-search"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control border-0 shadow-sm" placeholder="Cari pemilihan">
+                      <input type="text" class="form-control shadow-sm" placeholder="Cari pemilihan">
                     </div>
                 </form>
             </div>
@@ -34,17 +34,15 @@
 
         <div class="row mb-3">
             <div class="col">
-                @forelse($elections->chunk(3) as $chunk)
+                @forelse($elections->chunk(2) as $chunk)
                 <div class="row mb-4">
                   @foreach($chunk as $election)
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="card-deck">
                           <div class="card border-0 shadow-sm">
                             <div class="card-body">
-                              <div style="margin-left: -1.25rem;
-                                          padding-left: 1.25rem;
-                                          border-left: 5px solid #3490dc">
-                                <a href="{{ route('elections.show', $election->id) }}" class="no-underline text-decoration-none">
+                              <div class="card-title-wrapper">
+                                <a href="{{ route('elections.show', $election->hash_id) }}" class="no-underline text-decoration-none">
                                     <h4 class="card-title">{{ $election->name }}</h4>
                                 </a>
                               </div>

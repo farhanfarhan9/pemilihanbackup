@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,700';
+
 // Variables
 @import 'variables';
 
@@ -11,6 +13,12 @@
     padding: 0.8rem 1rem;
 }
 
+.card-title-wrapper {
+    margin-left: -1.25rem;
+    padding-left: 1.25rem;
+    border-left: 5px solid $blue
+}
+
 @include media-breakpoint-up('md') {
     .navbar-light .navbar-nav .nav-link:hover {
         color: $blue;
@@ -19,28 +27,6 @@
         padding-bottom: 1.2rem;
         transition: border 0.1s ease-out, color 0.1s ease-out;
     }
-}
-
-footer ul li {
-    a {
-        color: #fff;
-    }
-    a:hover {
-        border-bottom: 2px solid #fff;
-        color: #fff;
-        text-decoration: none;
-        transition: border 0.1s ease-out, color 0.1s ease-out;
-    }
-}
-
-footer ul li::after {
-    display: inline-block;
-    margin: 5px;
-    content: "|";
-}
-
-footer ul li:last-of-type::after {
-    display: none;
 }
 
 @import "~select2/dist/css/select2.css";

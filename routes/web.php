@@ -20,9 +20,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::get('elections/{election}/voters', 'ElectionController@voters')
+           ->name('elections.voters');
+    Route::patch('elections/{election}/voters/{voter}', 'ElectionController@updateVoters')
+           ->name('elections.updateVoters');
     Route::resource('elections', 'ElectionController');
-    Route::resource('candidates', 'CandidateController');
-    Route::resource('voters', 'VoterController');
+    Route::resource('elections.candidates', 'CandidateController');
+    Route::resource('voters', 'VoterController'); // All voters belongs to organization
 });
 
 /*
