@@ -15,7 +15,10 @@ class VoterController extends Controller
      */
     public function index()
     {
-        $voters = auth()->user()->organization->voters()->paginate(20);
+        // $voters = auth()->user()->organization->voters()->dropout();
+        // dd()
+        $voters = Voter::where('organization_id', 1)->active();
+        dd($voters);
         return view('voters.index', compact('voters'));
     }
 

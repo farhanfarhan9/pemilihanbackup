@@ -73,7 +73,7 @@
                   </tr>
                 @empty
                   <tr>
-                    <td colspan="6" class="text-center">Tidak ada data pemilih <a href="#">tambah sekarang</a>.</td>
+                    <td colspan="4" class="text-center">Tidak ada data pemilih <a href="#">tambah sekarang</a>.</td>
                   </tr>
                 @endforelse
               </tbody>

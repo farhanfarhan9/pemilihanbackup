@@ -2,17 +2,19 @@
 
 @section('content')
     <div class="container">
-        <div class="row mb-3">
+        <div class="row mb-4">
             <div class="col">
-                <h3 class="font-weight-normal">
-                    <i class="fas fa-poll-h"></i> Pemilihan
-                </h3>
+                <h5 class="mb-0 font-weight-normal">
+                    <a class="text-decoration-none text-dark" href="{{ route('elections.index') }}">
+                        <i class="fas fa-arrow-left mr-2"></i> Daftar pemilihan
+                    </a>
+                </h5>
             </div>
         </div>
         <div class="row mb-5">
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header border-0 bg-primary text-light">
+                    <div class="card-header border-0 bg-light">
                         <h5 class="font-weight-normal my-1">
                             {{ $election->name }}
                         </h5>
@@ -69,7 +71,7 @@
                             </div>
                         </div>
 
-                        <div class="row pt-4" style="border-top: 2px solid #dee2e6">
+                        <div class="row pt-4" style="border-top: 1px solid #dee2e6">
                             <div class="col-12 col-md-3">
                                 <strong style="font-size: 16px">Kandidat</strong>
                                 <a class="text-secondary" href="{{ route('elections.candidates.index', $election->hash_id) }}"><i class="fas fa-edit"></i></a>
@@ -101,7 +103,7 @@
                             </div>
                         </div>
 
-                        <div class="row pt-4" style="border-top: 2px solid #dee2e6" id="voters">
+                        <div class="row pt-4" style="border-top: 1px solid #dee2e6" id="voters">
                             <div class="col-12 col-md-3">
                                 <strong style="font-size: 16px">Daftar pemilih</strong>
                                 <a class="text-secondary" href="{{ route('elections.voters', $election->hash_id) }}"><i class="fas fa-edit"></i></a>
@@ -131,7 +133,7 @@
                             </div>
                         </div>
 
-                        <div class="row pt-4" style="border-top: 2px solid #dee2e6">
+                        <div class="row pt-4" style="border-top: 1px solid #dee2e6">
                             <div class="col-12 col-md-3">
                                 <strong style="font-size: 16px">Hasil</strong>
                                 <p class="text-secondary">
@@ -146,8 +148,8 @@
                         </div>
                     </div>
 
-                    <div class="card-footer d-flex justify-content-end">
-                        <div>
+                    <div class="card-footer border-0">
+                        <div class="d-flex justify-content-end">
                             <a class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteElectionModal" href="#">
                                 <i class="fas fa-trash"></i> Hapus pemilihan
                             </a>

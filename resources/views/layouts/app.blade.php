@@ -19,7 +19,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -30,27 +30,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     @auth
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('elections.index') }}">
-                                <i class="fas fa-poll-h"></i> Pemilihan
+                                Pemilihan
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('voters.index') }}">
-                                <i class="fas fa-person-booth"></i> Pemilih terdaftar
+                                Pemilih terdaftar
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-building"></i> Pengaturan Organisasi
+                                Organisasi
                             </a>
                         </li>
                     </ul>
                     @endauth
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -90,7 +90,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-3">
             @yield('content')
         </main>
 
