@@ -96,14 +96,16 @@ class ElectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $election = \App\Election::findOrFail($id);
 
-        $election->name = $request->get('name');
-        $election->registration_opened_on = $request->get('registration_opened_on');
-        $election->registration_closed_on = $request->get('registration_closed_on');
-        $election->voting_starts_on = $request->get('voting_starts_on');
-        $election->voting_ends_on = $request->get('voting_ends_on');
-        $election->save();
+        $election = \App\Election::findOrFail($id);
+        $updated=$request->validate([
+            'name' => 'required',
+            'registration_opened_on' => 'required',
+            'registration_closed_on' => 'required',
+            'voting_starts_on' => 'required',
+            'voting_ends_on' => 'required',
+        ]);
+        $election->update($updated);
         return redirect()->route('elections.index')->with('status', 'Berhasil mengubah pemilihan');
     }
 

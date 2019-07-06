@@ -1,16 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
 <div class="container">
-	<div class="row justify-content-center">
+	<div class="justify-content-center">
 		<div class="col-lg-8">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Buat pemilihan baru</h5>
-					<form action="{{route('elections.update',$election->id)}}" method="POST">
+					<h5 class="card-title">Edit pemilihan</h5>
+					<form method="post" action="{{route('admin.elections.update', $election->id)}}">
 						@csrf
 						@method('PUT')
 						<div class="form-group">
-							<label for="">Nama Pemilihan baru</label>
+							<label for="">Nama pemilihan</label>
 							<input type="text" name="name" value="{{$election->name}}" class="form-control @error('name') is-invalid @enderror">
 							@error('name')
 	                            <span class="invalid-feedback" role="alert">
@@ -56,17 +56,12 @@
 	                        	@enderror
 							</div>
 						</div>
-
 						<div class="form-group mt-3">
 							<div class="form-group">
                             <button class="btn btn-primary">
                                 <i class="fas fa-check"></i> Ubah
                             </button>
-                            <a class="btn btn-danger" href="{{ route('elections.index') }}">
-                                <i class="fas fa-arrow-left"></i> Kembali
-                            </a>
-                        	</div>
-						</div> 
+						</div>
 					</form>
 				</div>
 			</div>

@@ -15,8 +15,13 @@
             <div class="col">
                 <form>
                     <div class="input-group">
+<<<<<<< HEAD
                       <div class="input-group-prepend">
                         <span class="input-group-text bg-transparent shadow-sm">
+=======
+                      <div class="input-group-append">
+                        <span class="input-group-text bg-primary text-light border-0 shadow-sm">
+>>>>>>> 15767d2... validasi fitur voters
                             <i class="fas fa-search"></i>
                         </span>
                       </div>
@@ -54,14 +59,22 @@
                                     <i class="fas fa-hourglass-end"></i> {{ $election->voting_ends_on->format('d M Y H:i:s') }}
                                 </span>
                               </div>
-                                <div class="d-flex justify-content-between">
-                                    <span class="text-secondary">
-                                        <i class="fas fa-users"></i> 2 kandidat
-                                    </span>
-                                    <span class="text-secondary">
-                                        <i class="fas fa-person-booth"></i> 1200 pemilih
-                                    </span>
-                                </div>
+                              <div class="d-flex justify-content-between">
+                                  <span class="text-secondary">
+                                      <i class="fas fa-users"></i> 2 kandidat
+                                  </span>
+                                  <span class="text-secondary">
+                                      <i class="fas fa-person-booth"></i> 1200 pemilih
+                                  </span>
+                              </div>
+                              <div class="d-flex justify-content-end">
+                                  <a class="btn btn-info text-white btn-sm mr-1" href="{{route('elections.edit',$election->id)}}"><i class="fas fa-edit"></i> Edit</a>
+                                  <form action="{{route('elections.destroy',$election->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Hapus</button>
+                                  </form>
+                              </div>
                             </div>
                           </div>
                         </div>
