@@ -25,15 +25,6 @@ class Voter extends Model
     public function getHashIdAttribute() {
         return app(Optimus::class)->encode($this->id);
     }
-
-    public function getIpkAttribute() {
-        return mt_rand(1, 4);
-    }
-
-    public function scopeActive($query)
-    {
-        return $this->ipk;
-    }
     
     public function organization()
     {

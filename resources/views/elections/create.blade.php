@@ -148,7 +148,7 @@
                           <label class="custom-control-label" for="exceptVoter">Kecuali</label>
                         </div>
                         <div>
-                          <select multiple="multiple" name="exceptionVoters" class="custom-select select2">
+                          <select name="exceptionVoters" class="custom-select select2">
                             @foreach(auth()->user()->organization->voters as $voter)
                             <option>{{ $voter->identity }} {{$voter->name}}</option>
                             @endforeach

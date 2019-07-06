@@ -25,9 +25,9 @@ class StoreElectionPostRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required',
-            // 'voting_starts_on' => 'required|after:now|date_format:d-m-Y H:i',
-            // 'voting_ends_on' => 'required|after:voting_starts_on|date_format:d-m-Y H:i',
+            'name' => 'required',
+            'voting_starts_on' => 'required|after:now|date_format:d-m-Y H:i',
+            'voting_ends_on' => 'required|after:voting_starts_on|date_format:d-m-Y H:i',
         ];
     }
 

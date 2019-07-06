@@ -41,7 +41,6 @@ class ElectionController extends Controller
      */
     public function store(StoreElectionPostRequest $request)
     {
-        dd($request);
         $validate = $request->validated();
         $election = auth()->user()->organization->elections()
                                  ->create($validate);

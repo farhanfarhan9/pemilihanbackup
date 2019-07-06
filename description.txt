@@ -1,0 +1,39 @@
+Aplikasi memiliki 3 role
+Admin (Mengatur website), Official Organisasi (Pengatur organisasi dan pemilihan), Pemilih dari Organisasi
+
+
+Database design: lihat file pemilihan.png
+
+
+Fitur Admin
+- Belum terpikirkan, yang pasti bisa manage semua data.
+
+Fitur Official Organisasi
+
+- Apabila belum login
+-- Login
+-- Daftar Organisasi dan User sekaligus
+
+- Apabila telah login
+-- Manajemen Team Organisasi
+---- Pengaturan Organisasi
+---- Invite Anggota lain untuk mendaftar (table users)
+
+-- Manajemen Pemilihan (elections)
+---- Membuat pemilihan baru
+---- Mengedit dan menghapus pemilihan
+---- Melihat hasil pemilihan
+
+-- Manajemen Pemilih (voters)
+---- Menambah pemilih secara manual maupun import
+---- Mengedit dan menghapus pemilih
+
+
+Fitur Pemilih (Voter)
+- Apabila belum login
+-- Login menggunakan nomor hape atau email, kode pemilihan, password berupa sebuah OTP.
+
+- Apabila telah login
+-- Memilih salah satu kandidat dalam pemilihan
+-- Melihat hasil suatu pemilihan
+
